@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professional Application Maker</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; background: #e9ecef; line-height: 1.6; }
+        .container { background: white; padding: 30px; border-radius: 12px; max-width: 700px; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; text-align: center; margin-bottom: 25px; }
+        label { font-weight: bold; color: #495057; }
+        input, textarea { width: 100%; margin: 10px 0 20px 0; padding: 12px; border: 1px solid #ced4da; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        button { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; margin-bottom: 10px; }
+        button:hover { background: #218838; }
+        #appOutput { margin-top: 30px; padding: 30px; border: 1px solid #333; background: #fff; display: none; white-space: pre-wrap; font-family: 'Times New Roman', serif; font-size: 16px; }
+        .copy-btn { background: #6c757d; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>100-word Application Generator</h2>
+    
+    <label>Student Full Name:</label>
+    <input type="text" id="name" placeholder="Enter student name...">
+    
+    <label>Class & Section:</label>
+    <input type="text" id="stuClass" placeholder="e.g. 9-A">
+    
+    <label>Detailed Reason (Past Tense):</label>
+    <textarea id="reason" rows="4" placeholder="Describe what happened in detail..."></textarea>
+    
+    <button onclick="generate()">Generate Formal Application</button>
+    <button id="copyBtn" class="copy-btn" onclick="copyText()">Copy Application Text</button>
+    
+    <div id="appOutput"></div>
+</div>
+
+<script>
+    function generate() {
+        var name = document.getElementById('name').value;
+        var cls = document.getElementById('stuClass').value;
+        var reason = document.getElementById('reason').value;
+        var date = new Date().toLocaleDateString();
+
+        // Formal 100-word template
+        var text = "To,\n" +
+            "The Principal,\n" +
+            "Springfield High School,\n\n" +
+            "Date: " + date + "\n\n" +
+            "Subject: Formal Leave Application for Absence\n\n" +
+            "Respected Sir/Madam,\n\n" +
+            "With due respect and humble submission, I am writing to inform you that I am " + name + ", a student of Class " + cls + " in your prestigious institution. I was unable to attend school for the past few days because " + reason + ". Due to these unforeseen circumstances, it was not possible for me to be present for my regular academic sessions.\n\n" +
+            "I have now recovered and I am ready to resume my studies with full dedication. I kindly request you to grant me leave of absence for those days and allow me to sit in class. I assure you that I will complete all my pending assignments and missed lessons immediately with the help of my subject teachers.\n\n" +
+            "Thanking you in anticipation.\n\n" +
+            "Yours obediently,\n" +
+            "Name: " + name + "\n" +
+            "Class: " + cls + "\n\n" +
+            "--------------------------------------------\n" +
+            "Parent's Signature: ____________________\n\n" +
+            "Class Teacher's Signature: ______________\n" +
+            "--------------------------------------------";
+
+        var output = document.getElementById('appOutput');
+        output.innerText = text;
+        output.style.display = "block";
+        document.getElementById('copyBtn').style.display = "block";
+    }
+
+    function copyText() {
+        var text = document.getElementById('appOutput').innerText;
+        navigator.clipboard.writeText(text).then(function() {
+            alert("Application copied to clipboard!");
+        });
+    }
+</script>
+
+</body>
+</html>
